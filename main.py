@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException, Cookie, Response, Depends
+from fastapi import FastAPI, HTTPException, Cookie, Response, Depends, UploadFile, File
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
@@ -7,11 +7,16 @@ import json
 import os
 import time
 import uuid
+import shutil
 
 app = FastAPI(title="AL-CLINICA API")
 
 PORT = 3000
 DATA_FILE = 'data.json'
+UPLOAD_DIR = 'uploads'
+
+# Ensure uploads directory exists
+os.makedirs(UPLOAD_DIR, exist_ok=True)
 
 # In-memory active session store
 active_sessions = set()
@@ -36,6 +41,7 @@ class Doctor(BaseModel):
     available: bool
     nextAvail: Optional[str] = None
     avatarBg: Optional[str] = None
+    image: Optional[str] = None
 
 class LoginPayload(BaseModel):
     username: str
@@ -49,7 +55,7 @@ def read_data():
                 "clinicName": "AL-CLINICA",
                 "address": "123 Healthcare Ave — Open Mon–Sat, 8 AM to 8 PM",
                 "phone": "",
-                "wa": "919000000000"
+                "wa": "917592072319"
             },
             "doctors": []
         }
@@ -103,6 +109,17 @@ async def update_settings(settings: ClinicSettings, authorized: bool = Depends(v
     write_data(data)
     return {"success": True, "settings": data["settings"]}
 
+@app.post("/api/upload")
+async def upload_file(file: UploadFile = File(...), authorized: bool = Depends(verify_admin)):
+    file_ext = os.path.splitext(file.filename)[1]
+    filename = f"doc_{uuid.uuid4().hex}{file_ext}"
+    filepath = os.path.join(UPLOAD_DIR, filename)
+    
+    with open(filepath, "wb") as buffer:
+        shutil.copyfileobj(file.file, buffer)
+        
+    return {"url": f"/uploads/{filename}"}
+
 @app.post("/api/doctors")
 async def update_doctor(doc: Doctor, authorized: bool = Depends(verify_admin)):
     data = read_data()
@@ -127,7 +144,8 @@ async def update_doctor(doc: Doctor, authorized: bool = Depends(verify_admin)):
             "wa": doc.wa,
             "available": doc.available,
             "nextAvail": "" if doc.available else (doc.nextAvail or "Next: Tomorrow"),
-            "avatarBg": avatar_bg
+            "avatarBg": avatar_bg,
+            "image": doc.image
         }
         updated_doc = doctors[idx]
     else:
@@ -156,7 +174,8 @@ async def update_doctor(doc: Doctor, authorized: bool = Depends(verify_admin)):
             "wa": doc.wa,
             "available": doc.available,
             "nextAvail": "" if doc.available else (doc.nextAvail or "Next: Tomorrow"),
-            "avatarBg": get_avatar_bg(doc.name)
+            "avatarBg": get_avatar_bg(doc.name),
+            "image": doc.image
         }
         doctors.append(updated_doc)
         
@@ -172,6 +191,9 @@ async def delete_doctor(doctor_id: str, authorized: bool = Depends(verify_admin)
     data["doctors"] = doctors
     write_data(data)
     return {"success": True, "doctors": doctors}
+
+# Mount uploads directory statically
+app.mount("/uploads", StaticFiles(directory=UPLOAD_DIR), name="uploads")
 
 # Serve main webpage at root
 @app.get("/")

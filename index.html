@@ -51,6 +51,7 @@
     .doc-card:hover { transform: translateY(-6px); border-color: rgba(99,102,241,0.3); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
     .doc-card:hover::before { opacity: 1; }
     .doc-av { width: 70px; height: 70px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), var(--cyan)); display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: 800; color: white; margin-bottom: 16px; box-shadow: 0 4px 16px rgba(99,102,241,0.3); }
+    .doc-av img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
     .doc-name { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
     .doc-spec { font-size: 13px; font-weight: 600; color: var(--cyan); background: rgba(6,182,212,0.1); display: inline-block; padding: 3px 10px; border-radius: 50px; margin-bottom: 14px; }
     .doc-info { font-size: 13px; color: var(--muted); margin-bottom: 6px; } .doc-info span { color: var(--text); font-weight: 500; }
@@ -501,6 +502,15 @@
         </div>
       </div>
       <!-- Phone and WhatsApp inputs removed since all bookings route to the central WhatsApp number -->
+      <div class="form-group" style="margin-bottom: 24px;">
+        <label for="doctor-image">Doctor Photo (Optional)</label>
+        <input type="file" id="doctor-image" class="form-control" accept="image/*">
+        <input type="hidden" id="doctor-image-url">
+        <div id="doctor-image-preview-container" style="display: none; margin-top: 10px; align-items: center; gap: 12px;">
+          <img id="doctor-image-preview" src="" style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover;">
+          <button type="button" class="btn-g" style="padding: 4px 10px; font-size: 12px; color: var(--rose); border-color: rgba(244,63,94,0.2);" onclick="removeDoctorImagePreview()">Remove Photo</button>
+        </div>
+      </div>
       <div class="form-group" style="margin-top: 24px; margin-bottom: 24px;">
         <label class="switch-container">
           <span style="font-size: 14px; font-weight: 600; color: var(--text);">Is Available Today?</span>
@@ -565,6 +575,7 @@ const DEFAULT_DOCTORS = [
     nextAvail: "",
     phone: "",
     wa: "",
+    image: "",
     avatarBg: "linear-gradient(135deg, var(--primary), var(--cyan))"
   },
   {
@@ -579,6 +590,7 @@ const DEFAULT_DOCTORS = [
     nextAvail: "",
     phone: "",
     wa: "",
+    image: "",
     avatarBg: "linear-gradient(135deg,#10b981,#06b6d4)"
   },
   {
@@ -593,6 +605,7 @@ const DEFAULT_DOCTORS = [
     nextAvail: "",
     phone: "",
     wa: "",
+    image: "",
     avatarBg: "linear-gradient(135deg,#f59e0b,#ef4444)"
   },
   {
@@ -607,6 +620,7 @@ const DEFAULT_DOCTORS = [
     nextAvail: "Tomorrow",
     phone: "",
     wa: "",
+    image: "",
     avatarBg: "linear-gradient(135deg,#8b5cf6,#6366f1)"
   },
   {
@@ -621,6 +635,7 @@ const DEFAULT_DOCTORS = [
     nextAvail: "",
     phone: "",
     wa: "",
+    image: "",
     avatarBg: "linear-gradient(135deg,#ec4899,#f43f5e)"
   },
   {
@@ -635,6 +650,7 @@ const DEFAULT_DOCTORS = [
     nextAvail: "",
     phone: "",
     wa: "",
+    image: "",
     avatarBg: "linear-gradient(135deg,#0ea5e9,#38bdf8)"
   }
 ];
@@ -692,11 +708,18 @@ function toggleNextAvailField() {
   }
 }
 
+function removeDoctorImagePreview() {
+  document.getElementById('doctor-image').value = '';
+  document.getElementById('doctor-image-url').value = '';
+  document.getElementById('doctor-image-preview-container').style.display = 'none';
+}
+
 function openAddDoctorModal() {
   document.getElementById('doctor-modal-title').textContent = 'Add New Doctor';
   document.getElementById('doctor-id').value = '';
   document.getElementById('doctor-form').reset();
   document.getElementById('doctor-available').checked = true;
+  removeDoctorImagePreview();
   toggleNextAvailField();
   openModal('doctor-modal');
 }
@@ -715,6 +738,14 @@ function openEditDoctorModal(id) {
   document.getElementById('doctor-time').value = doc.time;
   document.getElementById('doctor-available').checked = doc.available;
   document.getElementById('doctor-next-avail').value = doc.nextAvail || '';
+  
+  if (doc.image) {
+    document.getElementById('doctor-image-url').value = doc.image;
+    document.getElementById('doctor-image-preview').src = doc.image;
+    document.getElementById('doctor-image-preview-container').style.display = 'flex';
+  } else {
+    removeDoctorImagePreview();
+  }
   
   toggleNextAvailField();
   openModal('doctor-modal');
@@ -835,6 +866,7 @@ function renderUI() {
     
     const initial = doc.name.replace('Dr. ', '').charAt(0).toUpperCase();
     const bg = doc.avatarBg || getAvatarBg(doc.name);
+    const avatarContent = doc.image ? `<img src="${doc.image}" alt="${doc.name}">` : initial;
     
     const waUrl = `https://wa.me/${settings.wa}?text=Hello%20${encodeURIComponent(settings.clinicName)}%2C%20I%20would%20like%20to%20book%20an%20appointment%20with%20${encodeURIComponent(doc.name)}%20(${encodeURIComponent(doc.spec)}).`;
     
@@ -845,7 +877,7 @@ function renderUI() {
           <button type="button" class="btn-action-icon btn-action-delete" onclick="deleteDoctor('${doc.id}')" title="Delete Doctor">🗑️</button>
         </div>
       ` : ''}
-      <div class="doc-av" style="background: ${bg}">${initial}</div>
+      <div class="doc-av" style="background: ${doc.image ? 'none' : bg}">${avatarContent}</div>
       <div class="doc-name">${doc.name}</div>
       <div class="doc-spec">${doc.spec}</div>
       <div class="doc-info">🎓 ${doc.qual} &nbsp;|&nbsp; <span>${doc.exp}</span></div>
@@ -950,9 +982,46 @@ document.getElementById('settings-form').addEventListener('submit', async functi
   }
 });
 
+document.getElementById('doctor-image').addEventListener('change', function(e) {
+  const file = e.target.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      document.getElementById('doctor-image-preview').src = e.target.result;
+      document.getElementById('doctor-image-preview-container').style.display = 'flex';
+    };
+    reader.readAsDataURL(file);
+  }
+});
+
 document.getElementById('doctor-form').addEventListener('submit', async function(e) {
   e.preventDefault();
   const id = document.getElementById('doctor-id').value;
+  const fileInput = document.getElementById('doctor-image');
+  let imageUrl = document.getElementById('doctor-image-url').value;
+  
+  if (fileInput.files.length > 0) {
+    const formData = new FormData();
+    formData.append('file', fileInput.files[0]);
+    
+    try {
+      const uploadResponse = await fetch('/api/upload', {
+        method: 'POST',
+        body: formData
+      });
+      
+      if (uploadResponse.ok) {
+        const uploadResult = await uploadResponse.json();
+        imageUrl = uploadResult.url;
+      } else {
+        alert('Failed to upload doctor photo, saving without photo.');
+      }
+    } catch (error) {
+      console.error('Upload error:', error);
+      alert('Network error during photo upload, saving without photo.');
+    }
+  }
+
   const payload = {
     name: document.getElementById('doctor-name').value,
     spec: document.getElementById('doctor-spec').value,
@@ -963,7 +1032,8 @@ document.getElementById('doctor-form').addEventListener('submit', async function
     phone: "",
     wa: "",
     available: document.getElementById('doctor-available').checked,
-    nextAvail: document.getElementById('doctor-next-avail').value
+    nextAvail: document.getElementById('doctor-next-avail').value,
+    image: imageUrl
   };
   
   if (id) {
