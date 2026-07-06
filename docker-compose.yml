@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    container_name: al_clinica_web
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./data.json:/app/data.json
+    restart: always

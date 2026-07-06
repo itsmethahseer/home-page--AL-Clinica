@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AL-CLINICA | Find a Doctor &amp; Book Appointment</title>
+  <meta name="description" content="AL-CLINICA – Your trusted healthcare partner. Browse our specialist doctors and book an appointment instantly via WhatsApp." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --primary:#6366f1;--cyan:#06b6d4;--emerald:#10b981;--amber:#f59e0b;--rose:#f43f5e;
+      --wa:#25d366;--bg:#0a0b14;--surface:#111827;--card:#1a2035;--border:rgba(255,255,255,0.07);
+      --text:#f1f5f9;--muted:#94a3b8;--font:'Outfit',sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden; }
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 14px 40px; background: rgba(10,11,20,0.88); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); }
+    .nav-brand { font-size: 22px; font-weight: 800; } .nav-brand span { color: var(--cyan); }
+    .nav-links-bar { display: flex; gap: 32px; list-style: none; }
+    .nav-links-bar a { color: var(--muted); text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.2s; }
+    .nav-links-bar a:hover { color: var(--text); }
+    .nav-cta { padding: 9px 22px; border-radius: 8px; font-size: 14px; font-weight: 700; background: linear-gradient(135deg, var(--primary), var(--cyan)); color: white; text-decoration: none; box-shadow: 0 4px 14px rgba(99,102,241,0.4); transition: opacity 0.2s; }
+    .nav-cta:hover { opacity: 0.85; }
+    .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; padding: 120px 24px 80px; background: radial-gradient(ellipse 80% 60% at 50% -10%, rgba(99,102,241,0.25) 0%, transparent 70%), radial-gradient(ellipse 60% 40% at 80% 80%, rgba(6,182,212,0.15) 0%, transparent 60%), var(--bg); }
+    .hero-badge { display: inline-flex; align-items: center; gap: 8px; padding: 6px 16px; border-radius: 50px; border: 1px solid rgba(99,102,241,0.4); background: rgba(99,102,241,0.1); font-size: 13px; color: var(--primary); font-weight: 600; margin-bottom: 28px; }
+    .hero h1 { font-size: clamp(36px, 7vw, 68px); font-weight: 900; line-height: 1.1; margin-bottom: 24px; letter-spacing: -1px; }
+    .gradient { background: linear-gradient(135deg, var(--primary) 0%, var(--cyan) 50%, var(--emerald) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .hero p { font-size: 18px; color: var(--muted); max-width: 540px; margin: 0 auto 44px; }
+    .hero-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .btn-p { padding: 14px 32px; border-radius: 10px; font-size: 15px; font-weight: 700; background: linear-gradient(135deg, var(--primary), var(--cyan)); color: white; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 20px rgba(99,102,241,0.4); transition: transform 0.2s; }
+    .btn-p:hover { transform: translateY(-2px); }
+    .btn-g { padding: 14px 32px; border-radius: 10px; font-size: 15px; font-weight: 700; background: transparent; color: var(--text); text-decoration: none; border: 1px solid var(--border); display: inline-flex; align-items: center; gap: 8px; transition: background 0.2s; }
+    .btn-g:hover { background: rgba(255,255,255,0.05); }
+    .hero-stats { display: flex; gap: 48px; justify-content: center; flex-wrap: wrap; margin-top: 64px; padding-top: 40px; border-top: 1px solid var(--border); }
+    .stat-num { font-size: 32px; font-weight: 800; color: var(--cyan); } .stat-label { font-size: 13px; color: var(--muted); font-weight: 500; margin-top: 2px; text-align: center; }
+    section { padding: 90px 24px; max-width: 1200px; margin: 0 auto; }
+    .tag { display: inline-block; font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--cyan); background: rgba(6,182,212,0.1); padding: 5px 14px; border-radius: 50px; border: 1px solid rgba(6,182,212,0.2); margin-bottom: 16px; }
+    .sec-title { font-size: clamp(26px, 4vw, 42px); font-weight: 800; line-height: 1.2; margin-bottom: 12px; }
+    .sec-sub { font-size: 16px; color: var(--muted); }
+    .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 24px; margin-top: 48px; }
+    .step { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 28px; text-align: center; }
+    .step-n { font-size: 11px; font-weight: 800; text-transform: uppercase; color: var(--primary); background: rgba(99,102,241,0.1); width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; border: 1px solid rgba(99,102,241,0.3); }
+    .step-ico { font-size: 36px; margin-bottom: 14px; } .step-t { font-size: 16px; font-weight: 700; margin-bottom: 8px; } .step-d { font-size: 13px; color: var(--muted); }
+    .doc-section { background: rgba(255,255,255,0.01); padding: 80px 48px; }
+    .doc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px; margin-top: 48px; max-width: 1200px; margin-left: auto; margin-right: auto; }
+    .doc-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 28px; transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s; position: relative; overflow: hidden; }
+    .doc-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--primary), var(--cyan)); opacity: 0; transition: opacity 0.25s; }
+    .doc-card:hover { transform: translateY(-6px); border-color: rgba(99,102,241,0.3); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
+    .doc-card:hover::before { opacity: 1; }
+    .doc-av { width: 70px; height: 70px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), var(--cyan)); display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: 800; color: white; margin-bottom: 16px; box-shadow: 0 4px 16px rgba(99,102,241,0.3); }
+    .doc-name { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+    .doc-spec { font-size: 13px; font-weight: 600; color: var(--cyan); background: rgba(6,182,212,0.1); display: inline-block; padding: 3px 10px; border-radius: 50px; margin-bottom: 14px; }
+    .doc-info { font-size: 13px; color: var(--muted); margin-bottom: 6px; } .doc-info span { color: var(--text); font-weight: 500; }
+    .doc-avail { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 600; margin-bottom: 20px; }
+    .dot { width: 8px; height: 8px; border-radius: 50%; } .dot.g { background: var(--emerald); box-shadow: 0 0 6px var(--emerald); } .dot.r { background: var(--rose); }
+    .doc-acts { display: flex; gap: 10px; }
+    .btn-wa { flex: 1; display: flex; align-items: center; justify-content: center; gap: 7px; padding: 10px 16px; border-radius: 8px; font-size: 13px; font-weight: 700; background: var(--wa); color: white; text-decoration: none; transition: opacity 0.2s, transform 0.15s; }
+    .btn-wa:hover { opacity: 0.85; transform: scale(1.02); }
+    .btn-call { display: flex; align-items: center; justify-content: center; gap: 7px; padding: 10px 18px; border-radius: 8px; font-size: 13px; font-weight: 700; background: var(--surface); color: var(--text); text-decoration: none; border: 1px solid var(--border); transition: background 0.2s, transform 0.15s; }
+    .btn-call:hover { background: rgba(255,255,255,0.07); transform: scale(1.02); }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+    @media(max-width:768px) { .about-grid { grid-template-columns: 1fr; } .nav-links-bar { display: none; } }
+    .feat-list { list-style: none; display: flex; flex-direction: column; gap: 14px; margin-top: 24px; }
+    .feat-list li { display: flex; align-items: flex-start; gap: 12px; font-size: 15px; color: var(--muted); }
+    .feat-ico { width: 36px; height: 36px; border-radius: 8px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 16px; }
+    .a-card { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 36px; display: flex; flex-direction: column; gap: 20px; }
+    .a-stat { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px 24px; display: flex; align-items: center; gap: 16px; }
+    .a-num { font-size: 26px; font-weight: 800; color: var(--cyan); } .a-lbl { font-size: 13px; color: var(--muted); }
+    .cta { background: linear-gradient(135deg, rgba(99,102,241,0.2), rgba(6,182,212,0.15)); border: 1px solid rgba(99,102,241,0.25); border-radius: 24px; padding: 60px; text-align: center; max-width: 1100px; margin: 0 auto 80px; }
+    .cta h2 { font-size: clamp(24px, 4vw, 38px); font-weight: 800; margin-bottom: 14px; }
+    .cta p { font-size: 16px; color: var(--muted); margin-bottom: 32px; }
+    footer { border-top: 1px solid var(--border); padding: 36px 40px 28px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px; }
+    .f-brand { font-size: 18px; font-weight: 800; } .f-brand span { color: var(--cyan); }
+    .f-links { display: flex; gap: 24px; }
+    .f-links a { color: var(--muted); font-size: 13px; text-decoration: none; transition: color 0.2s; } .f-links a:hover { color: var(--text); }
+    .f-copy { font-size: 12px; color: var(--muted); width: 100%; text-align: center; }
+    @keyframes fu { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+    .fu1 { animation: fu 0.7s ease both; } .fu2 { animation: fu 0.7s 0.15s ease both; } .fu3 { animation: fu 0.7s 0.3s ease both; } .fu4 { animation: fu 0.7s 0.45s ease both; }
+
+    /* Admin Mode Styles */
+    .admin-bar {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(17, 24, 39, 0.85);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      padding: 10px 20px;
+      border-radius: 50px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+      animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes slideUp {
+      from { transform: translate(-50%, 80px); opacity: 0; }
+      to { transform: translate(-50%, 0); opacity: 1; }
+    }
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(6, 6, 12, 0.85);
+      backdrop-filter: blur(8px);
+      z-index: 2000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+    .modal-content {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      width: 90%;
+      max-width: 500px;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 32px;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.6);
+      transform: scale(0.95);
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .modal-overlay.active .modal-content {
+      transform: scale(1);
+    }
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+    .modal-title {
+      font-size: 20px;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--cyan), var(--primary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .modal-close {
+      background: transparent;
+      border: none;
+      color: var(--muted);
+      font-size: 24px;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+    .modal-close:hover {
+      color: var(--text);
+    }
+    .form-group {
+      margin-bottom: 18px;
+    }
+    .form-group label {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--muted);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .form-control {
+      width: 100%;
+      padding: 12px 16px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-family: var(--font);
+      font-size: 14px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .form-control:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(99,102,241,0.25);
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .form-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+      margin-top: 28px;
+    }
+    .switch-container {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+    }
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 48px;
+      height: 24px;
+    }
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: var(--surface);
+      border: 1px solid var(--border);
+      transition: .3s;
+      border-radius: 24px;
+    }
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 16px;
+      width: 16px;
+      left: 3px;
+      bottom: 3px;
+      background-color: var(--muted);
+      transition: .3s;
+      border-radius: 50%;
+    }
+    input:checked + .slider {
+      background-color: var(--emerald);
+      border-color: var(--emerald);
+    }
+    input:checked + .slider:before {
+      transform: translateX(24px);
+      background-color: white;
+    }
+    .doc-card-actions {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      display: flex;
+      gap: 8px;
+      opacity: 0;
+      transition: opacity 0.2s;
+      z-index: 10;
+    }
+    .doc-card:hover .doc-card-actions {
+      opacity: 1;
+    }
+    .btn-action-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      color: white;
+      transition: transform 0.2s;
+    }
+    .btn-action-icon:hover {
+      transform: scale(1.1);
+    }
+    .btn-action-edit {
+      background: var(--primary);
+      box-shadow: 0 4px 10px rgba(99,102,241,0.4);
+    }
+    .btn-action-delete {
+      background: var(--rose);
+      box-shadow: 0 4px 10px rgba(244,63,94,0.4);
+    }
+    .add-doc-card {
+      border: 2px dashed rgba(99, 102, 241, 0.3);
+      background: rgba(99, 102, 241, 0.02);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 320px;
+      cursor: pointer;
+      border-radius: 16px;
+      transition: border-color 0.25s, background 0.25s;
+      padding: 28px;
+      text-align: center;
+    }
+    .add-doc-card:hover {
+      border-color: var(--cyan);
+      background: rgba(6, 182, 212, 0.05);
+    }
+    .add-doc-icon {
+      font-size: 40px;
+      color: var(--cyan);
+      margin-bottom: 12px;
+      transition: transform 0.25s;
+    }
+    .add-doc-card:hover .add-doc-icon {
+      transform: scale(1.1);
+    }
+    .add-doc-text {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--cyan);
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">AL-CLINICA<span>.</span></div>
+  <ul class="nav-links-bar">
+    <li><a href="#doctors">Our Doctors</a></li>
+    <li><a href="#how">How It Works</a></li>
+    <li><a href="#about">About Us</a></li>
+  </ul>
+  <a href="#doctors" class="nav-cta">Book Appointment</a>
+</nav>
+
+<div class="hero">
+  <div>
+    <div class="hero-badge fu1">🏥 Your Trusted Healthcare Partner</div>
+    <h1 class="fu2">Quality Healthcare,<br/><span class="gradient">Right at Your Doorstep</span></h1>
+    <p class="fu3">Browse our specialist doctors, book an appointment via WhatsApp, or simply call us. No registration needed.</p>
+    <div class="hero-btns fu4">
+      <a href="#doctors" class="btn-p">👨‍⚕️ Find a Doctor</a>
+      <a href="#about" class="btn-g">ℹ️ About Us</a>
+    </div>
+    <div class="hero-stats fu4">
+      <div><div class="stat-num" id="stat-doctors-count">10+</div><div class="stat-label">Specialist Doctors</div></div>
+      <div><div class="stat-num">5000+</div><div class="stat-label">Patients Served</div></div>
+      <div><div class="stat-num">15+</div><div class="stat-label">Years of Care</div></div>
+      <div><div class="stat-num">24/7</div><div class="stat-label">Emergency Ready</div></div>
+    </div>
+  </div>
+</div>
+
+<section id="how">
+  <div style="text-align:center">
+    <div class="tag">Simple Process</div>
+    <h2 class="sec-title">Book in 3 Easy Steps</h2>
+    <p class="sec-sub" style="margin:0 auto">No complicated forms. Pick a doctor and connect instantly.</p>
+  </div>
+  <div class="steps">
+    <div class="step"><div class="step-n">01</div><div class="step-ico">🔍</div><div class="step-t">Browse Doctors</div><div class="step-d">Find the right specialist from our experienced team.</div></div>
+    <div class="step"><div class="step-n">02</div><div class="step-ico">💬</div><div class="step-t">WhatsApp or Call</div><div class="step-d">Tap WhatsApp to chat or call reception to confirm your slot.</div></div>
+    <div class="step"><div class="step-n">03</div><div class="step-ico">✅</div><div class="step-t">Visit the Clinic</div><div class="step-d">Arrive at your booked time. We will be ready for you.</div></div>
+  </div>
+</section>
+
+<div class="doc-section" id="doctors">
+  <div style="text-align:center;max-width:1200px;margin:0 auto">
+    <div class="tag">Our Specialists</div>
+    <h2 class="sec-title">Meet Our Doctors</h2>
+    <p class="sec-sub">Our experienced, certified specialists are here for you.</p>
+  </div>
+  <div class="doc-grid" id="doctors-container">
+     <!-- Dynamic doctors list will render here -->
+  </div>
+</div>
+
+<section id="about">
+  <div class="about-grid">
+    <div>
+      <div class="tag">About AL-CLINICA</div>
+      <h2 class="sec-title">A Clinic That Cares, Beyond the Prescription</h2>
+      <p class="sec-sub">Established over 15 years ago, AL-CLINICA has been a pillar of quality healthcare. We combine experienced specialists with modern diagnostics for personalised, compassionate care.</p>
+      <ul class="feat-list">
+        <li><div class="feat-ico" style="background:rgba(99,102,241,0.12)">🏥</div><div><strong>Modern Facility</strong> — Advanced lab and pharmacy under one roof.</div></li>
+        <li><div class="feat-ico" style="background:rgba(6,182,212,0.12)">🔬</div><div><strong>In-House Laboratory</strong> — Fast, accurate results from certified lab technicians.</div></li>
+        <li><div class="feat-ico" style="background:rgba(16,185,129,0.12)">💊</div><div><strong>On-Site Pharmacy</strong> — Get your medicines right after your consultation.</div></li>
+        <li><div class="feat-ico" style="background:rgba(245,158,11,0.12)">🤝</div><div><strong>Patient-First Approach</strong> — We listen, diagnose, and guide — never rushing your visit.</div></li>
+      </ul>
+    </div>
+    <div class="a-card">
+      <div style="font-size:13px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em">Clinic at a Glance</div>
+      <div class="a-stat"><div style="font-size:28px">👨‍⚕️</div><div><div class="a-num" id="about-doctors-count">10+</div><div class="a-lbl">Specialist Doctors</div></div></div>
+      <div class="a-stat"><div style="font-size:28px">🔬</div><div><div class="a-num">40+</div><div class="a-lbl">Lab Tests Available</div></div></div>
+      <div class="a-stat"><div style="font-size:28px">💊</div><div><div class="a-num">200+</div><div class="a-lbl">Medicines in Pharmacy</div></div></div>
+      <div class="a-stat"><div style="font-size:28px">📍</div><div><div style="font-size:14px;font-weight:700">Location</div><div class="a-lbl" id="clinic-location-text">123 Healthcare Ave — Open Mon–Sat, 8 AM to 8 PM</div></div></div>
+    </div>
+  </div>
+</section>
+
+<div style="padding: 0 24px;">
+  <div class="cta">
+    <h2>Ready to See a Doctor?</h2>
+    <p>Contact us instantly on WhatsApp or call our reception. No long waits, no complex forms.</p>
+    <div style="display:flex;justify-content:center;">
+      <a href="https://wa.me/917592072319?text=Hello%2C%20I%20would%20like%20to%20book%20an%20appointment%20at%20AL-CLINICA." target="_blank" class="btn-p" style="background:linear-gradient(135deg,#25d366,#128c5e)" id="clinic-wa-btn">💬 WhatsApp Us Now</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="f-brand">AL-CLINICA<span>.</span></div>
+  <div class="f-links">
+    <a href="#doctors">Doctors</a>
+    <a href="#how">How It Works</a>
+    <a href="#about">About</a>
+    <a href="#" id="admin-login-btn" style="color: var(--cyan); font-weight: 600;">Admin Portal</a>
+  </div>
+  <div class="f-copy">© 2025 AL-CLINICA. All rights reserved.</div>
+</footer>
+
+<!-- Admin Floating Dock -->
+<div id="admin-floating-bar" class="admin-bar" style="display: none;">
+  <span style="font-size: 13px; font-weight: 700; color: var(--cyan); letter-spacing: 0.05em; display: flex; align-items: center; gap: 6px;">
+    <span style="width: 8px; height: 8px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 6px var(--cyan);"></span>
+    ADMIN MODE
+  </span>
+  <div style="width: 1px; height: 20px; background: var(--border);"></div>
+  <button onclick="openSettingsModal()" class="btn-g" style="padding: 6px 14px; font-size: 12px; font-weight: 600; border-radius: 20px; display: inline-flex; align-items: center; gap: 4px;">
+    ⚙️ Settings
+  </button>
+  <button onclick="openAddDoctorModal()" class="btn-p" style="padding: 6px 14px; font-size: 12px; font-weight: 600; border-radius: 20px; display: inline-flex; align-items: center; gap: 4px; box-shadow: none;">
+    ➕ Add Doctor
+  </button>
+  <div style="width: 1px; height: 20px; background: var(--border);"></div>
+  <button onclick="logoutAdmin()" class="btn-g" style="padding: 6px 14px; font-size: 12px; font-weight: 600; border-radius: 20px; color: var(--rose); border-color: rgba(244,63,94,0.2); display: inline-flex; align-items: center; gap: 4px;">
+    🚪 Log Out
+  </button>
+</div>
+
+<!-- Admin Login Modal -->
+<div class="modal-overlay" id="login-modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3 class="modal-title">Admin Login</h3>
+      <button class="modal-close" onclick="closeModal('login-modal')">&times;</button>
+    </div>
+    <form id="login-form">
+      <div class="form-group">
+        <label for="login-username">Username</label>
+        <input type="text" id="login-username" class="form-control" placeholder="Enter username" required value="admin">
+      </div>
+      <div class="form-group">
+        <label for="login-password">Password</label>
+        <input type="password" id="login-password" class="form-control" placeholder="Enter password" required>
+        <small style="color: var(--muted); margin-top: 6px; display: block;">Default password is: <strong style="color: var(--cyan);">admin123</strong></small>
+      </div>
+      <div id="login-error" style="color: var(--rose); font-size: 13px; margin-bottom: 16px; display: none;">Invalid username or password.</div>
+      <div class="form-actions">
+        <button type="button" class="btn-g" style="padding: 10px 20px;" onclick="closeModal('login-modal')">Cancel</button>
+        <button type="submit" class="btn-p" style="padding: 10px 24px;">Login</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Add/Edit Doctor Modal -->
+<div class="modal-overlay" id="doctor-modal">
+  <div class="modal-content" style="max-width: 600px;">
+    <div class="modal-header">
+      <h3 class="modal-title" id="doctor-modal-title">Add New Doctor</h3>
+      <button class="modal-close" onclick="closeModal('doctor-modal')">&times;</button>
+    </div>
+    <form id="doctor-form">
+      <input type="hidden" id="doctor-id">
+      <div class="form-group">
+        <label for="doctor-name">Doctor Name</label>
+        <input type="text" id="doctor-name" class="form-control" placeholder="e.g. Dr. Sarah Johnson" required>
+      </div>
+      <div class="form-group">
+        <label for="doctor-spec">Specialization</label>
+        <input type="text" id="doctor-spec" class="form-control" placeholder="e.g. General Physician" required>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="doctor-qual">Qualifications</label>
+          <input type="text" id="doctor-qual" class="form-control" placeholder="e.g. MBBS, MD" required>
+        </div>
+        <div class="form-group">
+          <label for="doctor-exp">Experience</label>
+          <input type="text" id="doctor-exp" class="form-control" placeholder="e.g. 12 yrs exp" required>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="doctor-days">Schedule Days</label>
+          <input type="text" id="doctor-days" class="form-control" placeholder="e.g. Mon–Sat" required>
+        </div>
+        <div class="form-group">
+          <label for="doctor-time">Schedule Timings</label>
+          <input type="text" id="doctor-time" class="form-control" placeholder="e.g. 9 AM – 5 PM" required>
+        </div>
+      </div>
+      <!-- Phone and WhatsApp inputs removed since all bookings route to the central WhatsApp number -->
+      <div class="form-group" style="margin-top: 24px; margin-bottom: 24px;">
+        <label class="switch-container">
+          <span style="font-size: 14px; font-weight: 600; color: var(--text);">Is Available Today?</span>
+          <span class="switch">
+            <input type="checkbox" id="doctor-available" checked onchange="toggleNextAvailField()">
+            <span class="slider"></span>
+          </span>
+        </label>
+      </div>
+      <div class="form-group" id="next-avail-group" style="display: none;">
+        <label for="doctor-next-avail">Next Available Schedule Details</label>
+        <input type="text" id="doctor-next-avail" class="form-control" placeholder="e.g. Next: Tomorrow, or Next: Monday">
+      </div>
+      <div class="form-actions">
+        <button type="button" class="btn-g" style="padding: 10px 20px;" onclick="closeModal('doctor-modal')">Cancel</button>
+        <button type="submit" class="btn-p" style="padding: 10px 24px;" id="doctor-submit-btn">Save Doctor</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Clinic Settings Modal -->
+<div class="modal-overlay" id="settings-modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3 class="modal-title">Clinic Settings</h3>
+      <button class="modal-close" onclick="closeModal('settings-modal')">&times;</button>
+    </div>
+    <form id="settings-form">
+      <div class="form-group">
+        <label for="clinic-name">Clinic Name</label>
+        <input type="text" id="clinic-name" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label for="clinic-address">Clinic Address & Hours</label>
+        <textarea id="clinic-address" class="form-control" rows="3" required></textarea>
+      </div>
+      <!-- Phone number settings input removed since call features are disabled -->
+      <div class="form-group">
+        <label for="clinic-wa">Reception WhatsApp Number (include country code, no + or spaces)</label>
+        <input type="text" id="clinic-wa" class="form-control" placeholder="e.g. 919000000000" required>
+      </div>
+      <div class="form-actions">
+        <button type="button" class="btn-g" style="padding: 10px 20px;" onclick="closeModal('settings-modal')">Cancel</button>
+        <button type="submit" class="btn-p" style="padding: 10px 24px;">Save Settings</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+const DEFAULT_DOCTORS = [
+  {
+    id: "doc-1",
+    name: "Dr. Sarah Johnson",
+    spec: "General Physician",
+    qual: "MBBS, MD",
+    exp: "12 yrs exp",
+    days: "Mon–Sat",
+    time: "9 AM – 5 PM",
+    available: true,
+    nextAvail: "",
+    phone: "",
+    wa: "",
+    avatarBg: "linear-gradient(135deg, var(--primary), var(--cyan))"
+  },
+  {
+    id: "doc-2",
+    name: "Dr. Rajan Pillai",
+    spec: "Cardiologist",
+    qual: "MBBS, DM (Cardiology)",
+    exp: "18 yrs",
+    days: "Mon, Wed, Fri",
+    time: "10 AM – 3 PM",
+    available: true,
+    nextAvail: "",
+    phone: "",
+    wa: "",
+    avatarBg: "linear-gradient(135deg,#10b981,#06b6d4)"
+  },
+  {
+    id: "doc-3",
+    name: "Dr. Fathima Noor",
+    spec: "Gynaecologist",
+    qual: "MBBS, MS (OBG)",
+    exp: "10 yrs",
+    days: "Tue, Thu, Sat",
+    time: "9 AM – 4 PM",
+    available: true,
+    nextAvail: "",
+    phone: "",
+    wa: "",
+    avatarBg: "linear-gradient(135deg,#f59e0b,#ef4444)"
+  },
+  {
+    id: "doc-4",
+    name: "Dr. Arjun Menon",
+    spec: "Orthopaedic Surgeon",
+    qual: "MBBS, MS (Ortho)",
+    exp: "14 yrs",
+    days: "Mon–Fri",
+    time: "11 AM – 6 PM",
+    available: false,
+    nextAvail: "Tomorrow",
+    phone: "",
+    wa: "",
+    avatarBg: "linear-gradient(135deg,#8b5cf6,#6366f1)"
+  },
+  {
+    id: "doc-5",
+    name: "Dr. Priya Krishnan",
+    spec: "Paediatrician",
+    qual: "MBBS, DCH",
+    exp: "9 yrs",
+    days: "Mon–Sat",
+    time: "8 AM – 2 PM",
+    available: true,
+    nextAvail: "",
+    phone: "",
+    wa: "",
+    avatarBg: "linear-gradient(135deg,#ec4899,#f43f5e)"
+  },
+  {
+    id: "doc-6",
+    name: "Dr. Mohammed Faizal",
+    spec: "Dermatologist",
+    qual: "MBBS, MD (Derma)",
+    exp: "11 yrs",
+    days: "Tue, Thu, Sat",
+    time: "2 PM – 7 PM",
+    available: true,
+    nextAvail: "",
+    phone: "",
+    wa: "",
+    avatarBg: "linear-gradient(135deg,#0ea5e9,#38bdf8)"
+  }
+];
+
+const DEFAULT_SETTINGS = {
+  clinicName: "AL-CLINICA",
+  address: "123 Healthcare Ave — Open Mon–Sat, 8 AM to 8 PM",
+  phone: "",
+  wa: "917592072319"
+};
+
+let doctors = [];
+let settings = {};
+let isAdmin = false;
+
+function getAvatarBg(name) {
+  const nameLower = name.toLowerCase();
+  if (nameLower.includes("sarah")) return "linear-gradient(135deg, var(--primary), var(--cyan))";
+  if (nameLower.includes("rajan")) return "linear-gradient(135deg,#10b981,#06b6d4)";
+  if (nameLower.includes("fathima")) return "linear-gradient(135deg,#f59e0b,#ef4444)";
+  if (nameLower.includes("arjun")) return "linear-gradient(135deg,#8b5cf6,#6366f1)";
+  if (nameLower.includes("priya")) return "linear-gradient(135deg,#ec4899,#f43f5e)";
+  if (nameLower.includes("faizal") || nameLower.includes("mohammed")) return "linear-gradient(135deg,#0ea5e9,#38bdf8)";
+  
+  const gradients = [
+    "linear-gradient(135deg, var(--primary), var(--cyan))",
+    "linear-gradient(135deg, #10b981, #06b6d4)",
+    "linear-gradient(135deg, #f59e0b, #ef4444)",
+    "linear-gradient(135deg, #8b5cf6, #6366f1)",
+    "linear-gradient(135deg, #ec4899, #f43f5e)",
+    "linear-gradient(135deg, #0ea5e9, #38bdf8)"
+  ];
+  let charSum = 0;
+  for (let i = 0; i < name.length; i++) {
+    charSum += name.charCodeAt(i);
+  }
+  return gradients[charSum % gradients.length];
+}
+
+function openModal(id) {
+  document.getElementById(id).classList.add('active');
+}
+
+function closeModal(id) {
+  document.getElementById(id).classList.remove('active');
+}
+
+function toggleNextAvailField() {
+  const isAvailable = document.getElementById('doctor-available').checked;
+  const nextAvailGroup = document.getElementById('next-avail-group');
+  if (isAvailable) {
+    nextAvailGroup.style.display = 'none';
+  } else {
+    nextAvailGroup.style.display = 'block';
+  }
+}
+
+function openAddDoctorModal() {
+  document.getElementById('doctor-modal-title').textContent = 'Add New Doctor';
+  document.getElementById('doctor-id').value = '';
+  document.getElementById('doctor-form').reset();
+  document.getElementById('doctor-available').checked = true;
+  toggleNextAvailField();
+  openModal('doctor-modal');
+}
+
+function openEditDoctorModal(id) {
+  const doc = doctors.find(d => d.id === id);
+  if (!doc) return;
+  
+  document.getElementById('doctor-modal-title').textContent = 'Edit Doctor Details';
+  document.getElementById('doctor-id').value = doc.id;
+  document.getElementById('doctor-name').value = doc.name;
+  document.getElementById('doctor-spec').value = doc.spec;
+  document.getElementById('doctor-qual').value = doc.qual;
+  document.getElementById('doctor-exp').value = doc.exp;
+  document.getElementById('doctor-days').value = doc.days;
+  document.getElementById('doctor-time').value = doc.time;
+  document.getElementById('doctor-available').checked = doc.available;
+  document.getElementById('doctor-next-avail').value = doc.nextAvail || '';
+  
+  toggleNextAvailField();
+  openModal('doctor-modal');
+}
+
+async function deleteDoctor(id) {
+  const doc = doctors.find(d => d.id === id);
+  if (!doc) return;
+  
+  if (confirm(`Are you sure you want to delete ${doc.name}?`)) {
+    try {
+      const response = await fetch(`/api/doctors/${id}`, {
+        method: 'DELETE'
+      });
+      if (response.ok) {
+        const resData = await response.json();
+        doctors = resData.doctors;
+        renderUI();
+      } else {
+        const errData = await response.json();
+        alert('Failed to delete doctor: ' + (errData.error || 'Unknown error'));
+      }
+    } catch (error) {
+      console.error('Error deleting doctor:', error);
+      alert('Connection error. Failed to delete doctor.');
+    }
+  }
+}
+
+function openSettingsModal() {
+  document.getElementById('clinic-name').value = settings.clinicName;
+  document.getElementById('clinic-address').value = settings.address;
+  document.getElementById('clinic-wa').value = settings.wa;
+  openModal('settings-modal');
+}
+
+async function logoutAdmin() {
+  if (confirm('Are you sure you want to log out from Admin mode?')) {
+    try {
+      const response = await fetch('/api/logout', {
+        method: 'POST'
+      });
+      if (response.ok) {
+        isAdmin = false;
+        await init();
+      } else {
+        alert('Failed to log out cleanly.');
+      }
+    } catch (error) {
+      console.error('Logout error:', error);
+      isAdmin = false;
+      renderUI();
+    }
+  }
+}
+
+async function init() {
+  try {
+    const response = await fetch('/api/data');
+    if (!response.ok) throw new Error('Failed to fetch data');
+    const data = await response.json();
+    
+    settings = data.settings;
+    doctors = data.doctors;
+    isAdmin = data.isAdmin;
+    
+    renderUI();
+  } catch (error) {
+    console.error('Error initializing data from server:', error);
+    alert('Failed to connect to the clinic server. Running in offline fallback mode.');
+    settings = { ...DEFAULT_SETTINGS };
+    doctors = [ ...DEFAULT_DOCTORS ];
+    isAdmin = false;
+    renderUI();
+  }
+}
+
+function renderUI() {
+  // Update Clinic Name
+  document.querySelectorAll('.nav-brand, .f-brand').forEach(el => {
+    el.innerHTML = settings.clinicName + '<span>.</span>';
+  });
+  
+  const aboutTag = document.querySelector('#about .tag');
+  if (aboutTag) {
+    aboutTag.textContent = 'About ' + settings.clinicName;
+  }
+  
+  const locationEl = document.getElementById('clinic-location-text');
+  if (locationEl) {
+    locationEl.textContent = settings.address;
+  }
+
+  const waBtn = document.getElementById('clinic-wa-btn');
+  if (waBtn) {
+    waBtn.href = `https://wa.me/${settings.wa}?text=Hello%20${encodeURIComponent(settings.clinicName)}%2C%20I%20would%20like%20to%20book%20an%20appointment.`;
+  }
+
+  // Update Stats counts
+  const statDocEl = document.getElementById('stat-doctors-count');
+  if (statDocEl) {
+    statDocEl.textContent = `${doctors.length}+`;
+  }
+  const aboutDocEl = document.getElementById('about-doctors-count');
+  if (aboutDocEl) {
+    aboutDocEl.textContent = `${doctors.length}+`;
+  }
+
+  // Render Doctors
+  const container = document.getElementById('doctors-container');
+  if (!container) return;
+  
+  container.innerHTML = '';
+  
+  doctors.forEach(doc => {
+    const card = document.createElement('div');
+    card.className = 'doc-card';
+    
+    const initial = doc.name.replace('Dr. ', '').charAt(0).toUpperCase();
+    const bg = doc.avatarBg || getAvatarBg(doc.name);
+    
+    const waUrl = `https://wa.me/${settings.wa}?text=Hello%20${encodeURIComponent(settings.clinicName)}%2C%20I%20would%20like%20to%20book%20an%20appointment%20with%20${encodeURIComponent(doc.name)}%20(${encodeURIComponent(doc.spec)}).`;
+    
+    card.innerHTML = `
+      ${isAdmin ? `
+        <div class="doc-card-actions">
+          <button type="button" class="btn-action-icon btn-action-edit" onclick="openEditDoctorModal('${doc.id}')" title="Edit Doctor">✏️</button>
+          <button type="button" class="btn-action-icon btn-action-delete" onclick="deleteDoctor('${doc.id}')" title="Delete Doctor">🗑️</button>
+        </div>
+      ` : ''}
+      <div class="doc-av" style="background: ${bg}">${initial}</div>
+      <div class="doc-name">${doc.name}</div>
+      <div class="doc-spec">${doc.spec}</div>
+      <div class="doc-info">🎓 ${doc.qual} &nbsp;|&nbsp; <span>${doc.exp}</span></div>
+      <div class="doc-info">🕐 ${doc.days} &nbsp;<span>${doc.time}</span></div>
+      <div class="doc-avail">
+        <div class="dot ${doc.available ? 'g' : 'r'}"></div> 
+        ${doc.available ? 'Available Today' : (doc.nextAvail || 'Next: Tomorrow')}
+      </div>
+      <div class="doc-acts">
+        <a href="${waUrl}" target="_blank" class="btn-wa" style="width: 100%;">💬 WhatsApp Booking</a>
+      </div>
+    `;
+    container.appendChild(card);
+  });
+
+  if (isAdmin) {
+    const addCard = document.createElement('div');
+    addCard.className = 'add-doc-card';
+    addCard.onclick = openAddDoctorModal;
+    addCard.innerHTML = `
+      <div class="add-doc-icon">➕</div>
+      <div class="add-doc-text">Add New Doctor</div>
+    `;
+    container.appendChild(addCard);
+    
+    document.getElementById('admin-floating-bar').style.display = 'flex';
+  } else {
+    document.getElementById('admin-floating-bar').style.display = 'none';
+  }
+}
+
+// Event Listeners
+document.getElementById('admin-login-btn').addEventListener('click', function(e) {
+  e.preventDefault();
+  if (isAdmin) {
+    alert('You are already logged in as Admin!');
+  } else {
+    openModal('login-modal');
+  }
+});
+
+document.getElementById('login-form').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const username = document.getElementById('login-username').value;
+  const password = document.getElementById('login-password').value;
+  const errorEl = document.getElementById('login-error');
+  
+  try {
+    const response = await fetch('/api/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username, password })
+    });
+    
+    if (response.ok) {
+      isAdmin = true;
+      closeModal('login-modal');
+      await init();
+      document.getElementById('login-password').value = '';
+      errorEl.style.display = 'none';
+    } else {
+      const errData = await response.json();
+      errorEl.textContent = errData.error || 'Invalid credentials';
+      errorEl.style.display = 'block';
+    }
+  } catch (error) {
+    console.error('Login error:', error);
+    errorEl.textContent = 'Server connection error. Please try again.';
+    errorEl.style.display = 'block';
+  }
+});
+
+document.getElementById('settings-form').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const updatedSettings = {
+    clinicName: document.getElementById('clinic-name').value,
+    address: document.getElementById('clinic-address').value,
+    phone: "",
+    wa: document.getElementById('clinic-wa').value
+  };
+  
+  try {
+    const response = await fetch('/api/settings', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(updatedSettings)
+    });
+    
+    if (response.ok) {
+      const resData = await response.json();
+      settings = resData.settings;
+      closeModal('settings-modal');
+      renderUI();
+      alert('Settings saved successfully!');
+    } else {
+      const errData = await response.json();
+      alert('Failed to save settings: ' + (errData.error || 'Unknown error'));
+    }
+  } catch (error) {
+    console.error('Error saving settings:', error);
+    alert('Connection error. Failed to save settings.');
+  }
+});
+
+document.getElementById('doctor-form').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const id = document.getElementById('doctor-id').value;
+  const payload = {
+    name: document.getElementById('doctor-name').value,
+    spec: document.getElementById('doctor-spec').value,
+    qual: document.getElementById('doctor-qual').value,
+    exp: document.getElementById('doctor-exp').value,
+    days: document.getElementById('doctor-days').value,
+    time: document.getElementById('doctor-time').value,
+    phone: "",
+    wa: "",
+    available: document.getElementById('doctor-available').checked,
+    nextAvail: document.getElementById('doctor-next-avail').value
+  };
+  
+  if (id) {
+    payload.id = id;
+  }
+  
+  try {
+    const response = await fetch('/api/doctors', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    
+    if (response.ok) {
+      const resData = await response.json();
+      doctors = resData.doctors;
+      closeModal('doctor-modal');
+      renderUI();
+      alert(id ? 'Doctor details updated successfully!' : 'New doctor added successfully!');
+    } else {
+      const errData = await response.json();
+      alert('Failed to save doctor: ' + (errData.error || 'Unknown error'));
+    }
+  } catch (error) {
+    console.error('Error saving doctor:', error);
+    alert('Connection error. Failed to save doctor details.');
+  }
+});
+
+// Initialize on Load
+window.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>

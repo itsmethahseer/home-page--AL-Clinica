@@ -1,0 +1,94 @@
+{
+  "settings": {
+    "clinicName": "AL-CLINICA",
+    "address": "123 Healthcare Ave — Open Mon–Sat, 8 AM to 8 PM",
+    "phone": "",
+    "wa": "917592072319"
+  },
+  "doctors": [
+    {
+      "id": "doc-1",
+      "name": "Dr. Sarah",
+      "spec": "General Physician",
+      "qual": "MBBS, MD",
+      "exp": "12 yrs exp",
+      "days": "Mon–Sat",
+      "time": "9 AM – 5 PM",
+      "phone": "",
+      "wa": "",
+      "available": true,
+      "nextAvail": "",
+      "avatarBg": "linear-gradient(135deg, var(--primary), var(--cyan))"
+    },
+    {
+      "id": "doc-2",
+      "name": "Dr. Rajan Pillai",
+      "spec": "Cardiologist",
+      "qual": "MBBS, DM (Cardiology)",
+      "exp": "18 yrs",
+      "days": "Mon, Wed, Fri",
+      "time": "10 AM – 3 PM",
+      "available": true,
+      "nextAvail": "",
+      "phone": "",
+      "wa": "",
+      "avatarBg": "linear-gradient(135deg,#10b981,#06b6d4)"
+    },
+    {
+      "id": "doc-3",
+      "name": "Dr. Fathima Noor",
+      "spec": "Gynaecologist",
+      "qual": "MBBS, MS (OBG)",
+      "exp": "10 yrs",
+      "days": "Tue, Thu, Sat",
+      "time": "9 AM – 4 PM",
+      "available": true,
+      "nextAvail": "",
+      "phone": "",
+      "wa": "",
+      "avatarBg": "linear-gradient(135deg,#f59e0b,#ef4444)"
+    },
+    {
+      "id": "doc-4",
+      "name": "Dr. Arjun Menon",
+      "spec": "Orthopaedic Surgeon",
+      "qual": "MBBS, MS (Ortho)",
+      "exp": "14 yrs",
+      "days": "Mon–Fri",
+      "time": "11 AM – 6 PM",
+      "available": false,
+      "nextAvail": "Tomorrow",
+      "phone": "",
+      "wa": "",
+      "avatarBg": "linear-gradient(135deg,#8b5cf6,#6366f1)"
+    },
+    {
+      "id": "doc-5",
+      "name": "Dr. Priya Krishnan",
+      "spec": "Paediatrician",
+      "qual": "MBBS, DCH",
+      "exp": "9 yrs",
+      "days": "Mon–Sat",
+      "time": "8 AM – 2 PM",
+      "available": true,
+      "nextAvail": "",
+      "phone": "",
+      "wa": "",
+      "avatarBg": "linear-gradient(135deg,#ec4899,#f43f5e)"
+    },
+    {
+      "id": "doc-6",
+      "name": "Dr. Mohammed Faizal",
+      "spec": "Dermatologist",
+      "qual": "MBBS, MD (Derma)",
+      "exp": "11 yrs",
+      "days": "Tue, Thu, Sat",
+      "time": "2 PM – 7 PM",
+      "available": true,
+      "nextAvail": "",
+      "phone": "",
+      "wa": "",
+      "avatarBg": "linear-gradient(135deg,#0ea5e9,#38bdf8)"
+    }
+  ]
+}
