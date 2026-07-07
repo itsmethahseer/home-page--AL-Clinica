@@ -319,6 +319,53 @@
       font-weight: 700;
       color: var(--cyan);
     }
+    
+    /* Language Switcher Styles */
+    .lang-switch-pill {
+      display: inline-flex;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 3px;
+      gap: 2px;
+    }
+    .lang-btn {
+      background: transparent;
+      border: none;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+      padding: 6px 12px;
+      border-radius: 16px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .lang-btn.active {
+      background: linear-gradient(135deg, var(--primary), var(--cyan));
+      color: white;
+      box-shadow: 0 2px 8px rgba(99,102,241,0.3);
+    }
+    .lang-btn:not(.active):hover {
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.05);
+    }
+    @media(max-width:768px) {
+      nav { padding: 12px 24px; }
+      .about-grid { grid-template-columns: 1fr; }
+      .nav-links-bar { display: none; }
+    }
+    @media(max-width:480px) {
+      nav { padding: 10px 16px; }
+      .nav-brand { font-size: 18px; }
+      .lang-switch-pill { padding: 2px; }
+      .lang-btn { padding: 5px 8px; font-size: 11px; }
+      .nav-cta { padding: 8px 14px; font-size: 12px; }
+    }
+    @media(max-width:360px) {
+      .nav-brand { font-size: 16px; }
+      .lang-btn { padding: 4px 6px; font-size: 10px; }
+      .nav-cta { padding: 6px 10px; font-size: 11px; }
+    }
   </style>
 </head>
 <body>
@@ -326,49 +373,55 @@
 <nav>
   <div class="nav-brand">AL-CLINICA<span>.</span></div>
   <ul class="nav-links-bar">
-    <li><a href="#doctors">Our Doctors</a></li>
-    <li><a href="#how">How It Works</a></li>
-    <li><a href="#about">About Us</a></li>
+    <li><a href="#doctors" data-i18n="nav_doctors">Our Doctors</a></li>
+    <li><a href="#how" data-i18n="nav_how">How It Works</a></li>
+    <li><a href="#about" data-i18n="nav_about">About Us</a></li>
   </ul>
-  <a href="#doctors" class="nav-cta">Book Appointment</a>
+  <div style="display: flex; align-items: center; gap: 16px;">
+    <div class="lang-switch-pill">
+      <button class="lang-btn active" id="lang-en" onclick="setLanguage('en')">EN</button>
+      <button class="lang-btn" id="lang-ml" onclick="setLanguage('ml')">മലയാളം</button>
+    </div>
+    <a href="#doctors" class="nav-cta" data-i18n="nav_book">Book Appointment</a>
+  </div>
 </nav>
 
 <div class="hero">
   <div>
-    <div class="hero-badge fu1">🏥 Your Trusted Healthcare Partner</div>
-    <h1 class="fu2">Quality Healthcare,<br/><span class="gradient">Right at Your Doorstep</span></h1>
-    <p class="fu3">Browse our specialist doctors, book an appointment via WhatsApp, or simply call us. No registration needed.</p>
+    <div class="hero-badge fu1" data-i18n="hero_badge">🏥 Your Trusted Healthcare Partner</div>
+    <h1 class="fu2" id="hero-title" data-i18n="hero_title">Quality Healthcare,<br/><span class="gradient">Right at Your Doorstep</span></h1>
+    <p class="fu3" data-i18n="hero_desc">Browse our specialist doctors, book an appointment via WhatsApp, or simply call us. No registration needed.</p>
     <div class="hero-btns fu4">
-      <a href="#doctors" class="btn-p">👨‍⚕️ Find a Doctor</a>
-      <a href="#about" class="btn-g">ℹ️ About Us</a>
+      <a href="#doctors" class="btn-p" data-i18n="hero_find_doc">👨‍⚕️ Find a Doctor</a>
+      <a href="#about" class="btn-g" data-i18n="hero_about_us">ℹ️ About Us</a>
     </div>
     <div class="hero-stats fu4">
-      <div><div class="stat-num" id="stat-doctors-count">10+</div><div class="stat-label">Specialist Doctors</div></div>
-      <div><div class="stat-num">5000+</div><div class="stat-label">Patients Served</div></div>
-      <div><div class="stat-num">15+</div><div class="stat-label">Years of Care</div></div>
-      <div><div class="stat-num">24/7</div><div class="stat-label">Emergency Ready</div></div>
+      <div><div class="stat-num" id="stat-doctors-count">10+</div><div class="stat-label" data-i18n="stat_doctors">Specialist Doctors</div></div>
+      <div><div class="stat-num" data-i18n="stat_patients_count">5000+</div><div class="stat-label" data-i18n="stat_patients">Patients Served</div></div>
+      <div><div class="stat-num" data-i18n="stat_years_count">15+</div><div class="stat-label" data-i18n="stat_years">Years of Care</div></div>
+      <div><div class="stat-num" data-i18n="stat_emergency_count">24/7</div><div class="stat-label" data-i18n="stat_emergency">Emergency Ready</div></div>
     </div>
   </div>
 </div>
 
 <section id="how">
   <div style="text-align:center">
-    <div class="tag">Simple Process</div>
-    <h2 class="sec-title">Book in 3 Easy Steps</h2>
-    <p class="sec-sub" style="margin:0 auto">No complicated forms. Pick a doctor and connect instantly.</p>
+    <div class="tag" data-i18n="how_tag">Simple Process</div>
+    <h2 class="sec-title" data-i18n="how_title">Book in 3 Easy Steps</h2>
+    <p class="sec-sub" style="margin:0 auto" data-i18n="how_subtitle">No complicated forms. Pick a doctor and connect instantly.</p>
   </div>
   <div class="steps">
-    <div class="step"><div class="step-n">01</div><div class="step-ico">🔍</div><div class="step-t">Browse Doctors</div><div class="step-d">Find the right specialist from our experienced team.</div></div>
-    <div class="step"><div class="step-n">02</div><div class="step-ico">💬</div><div class="step-t">WhatsApp or Call</div><div class="step-d">Tap WhatsApp to chat or call reception to confirm your slot.</div></div>
-    <div class="step"><div class="step-n">03</div><div class="step-ico">✅</div><div class="step-t">Visit the Clinic</div><div class="step-d">Arrive at your booked time. We will be ready for you.</div></div>
+    <div class="step"><div class="step-n">01</div><div class="step-ico">🔍</div><div class="step-t" data-i18n="step1_title">Browse Doctors</div><div class="step-d" data-i18n="step1_desc">Find the right specialist from our experienced team.</div></div>
+    <div class="step"><div class="step-n">02</div><div class="step-ico">💬</div><div class="step-t" data-i18n="step2_title">WhatsApp or Call</div><div class="step-d" data-i18n="step2_desc">Tap WhatsApp to chat or call reception to confirm your slot.</div></div>
+    <div class="step"><div class="step-n">03</div><div class="step-ico">✅</div><div class="step-t" data-i18n="step3_title">Visit the Clinic</div><div class="step-d" data-i18n="step3_desc">Arrive at your booked time. We will be ready for you.</div></div>
   </div>
 </section>
 
 <div class="doc-section" id="doctors">
   <div style="text-align:center;max-width:1200px;margin:0 auto">
-    <div class="tag">Our Specialists</div>
-    <h2 class="sec-title">Meet Our Doctors</h2>
-    <p class="sec-sub">Our experienced, certified specialists are here for you.</p>
+    <div class="tag" data-i18n="docs_tag">Our Specialists</div>
+    <h2 class="sec-title" data-i18n="docs_title">Meet Our Doctors</h2>
+    <p class="sec-sub" data-i18n="docs_subtitle">Our experienced, certified specialists are here for you.</p>
   </div>
   <div class="doc-grid" id="doctors-container">
      <!-- Dynamic doctors list will render here -->
@@ -378,32 +431,32 @@
 <section id="about">
   <div class="about-grid">
     <div>
-      <div class="tag">About AL-CLINICA</div>
-      <h2 class="sec-title">A Clinic That Cares, Beyond the Prescription</h2>
-      <p class="sec-sub">Established over 15 years ago, AL-CLINICA has been a pillar of quality healthcare. We combine experienced specialists with modern diagnostics for personalised, compassionate care.</p>
+      <div class="tag" id="about-tag-clinic" data-i18n="about_tag">About AL-CLINICA</div>
+      <h2 class="sec-title" data-i18n="about_title">A Clinic That Cares, Beyond the Prescription</h2>
+      <p class="sec-sub" data-i18n="about_subtitle">Established over 15 years ago, AL-CLINICA has been a pillar of quality healthcare. We combine experienced specialists with modern diagnostics for personalised, compassionate care.</p>
       <ul class="feat-list">
-        <li><div class="feat-ico" style="background:rgba(99,102,241,0.12)">🏥</div><div><strong>Modern Facility</strong> — Advanced lab and pharmacy under one roof.</div></li>
-        <li><div class="feat-ico" style="background:rgba(6,182,212,0.12)">🔬</div><div><strong>In-House Laboratory</strong> — Fast, accurate results from certified lab technicians.</div></li>
-        <li><div class="feat-ico" style="background:rgba(16,185,129,0.12)">💊</div><div><strong>On-Site Pharmacy</strong> — Get your medicines right after your consultation.</div></li>
-        <li><div class="feat-ico" style="background:rgba(245,158,11,0.12)">🤝</div><div><strong>Patient-First Approach</strong> — We listen, diagnose, and guide — never rushing your visit.</div></li>
+        <li><div class="feat-ico" style="background:rgba(99,102,241,0.12)">🏥</div><div><strong data-i18n="feat_facility_title">Modern Facility</strong> — <span data-i18n="feat_facility_desc">Advanced lab and pharmacy under one roof.</span></div></li>
+        <li><div class="feat-ico" style="background:rgba(6,182,212,0.12)">🔬</div><div><strong data-i18n="feat_lab_title">In-House Laboratory</strong> — <span data-i18n="feat_lab_desc">Fast, accurate results from certified lab technicians.</span></div></li>
+        <li><div class="feat-ico" style="background:rgba(16,185,129,0.12)">💊</div><div><strong data-i18n="feat_pharma_title">On-Site Pharmacy</strong> — <span data-i18n="feat_pharma_desc">Get your medicines right after your consultation.</span></div></li>
+        <li><div class="feat-ico" style="background:rgba(245,158,11,0.12)">🤝</div><div><strong data-i18n="feat_patient_title">Patient-First Approach</strong> — <span data-i18n="feat_patient_desc">We listen, diagnose, and guide — never rushing your visit.</span></div></li>
       </ul>
     </div>
     <div class="a-card">
-      <div style="font-size:13px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em">Clinic at a Glance</div>
-      <div class="a-stat"><div style="font-size:28px">👨‍⚕️</div><div><div class="a-num" id="about-doctors-count">10+</div><div class="a-lbl">Specialist Doctors</div></div></div>
-      <div class="a-stat"><div style="font-size:28px">🔬</div><div><div class="a-num">40+</div><div class="a-lbl">Lab Tests Available</div></div></div>
-      <div class="a-stat"><div style="font-size:28px">💊</div><div><div class="a-num">200+</div><div class="a-lbl">Medicines in Pharmacy</div></div></div>
-      <div class="a-stat"><div style="font-size:28px">📍</div><div><div style="font-size:14px;font-weight:700">Location</div><div class="a-lbl" id="clinic-location-text">123 Healthcare Ave — Open Mon–Sat, 8 AM to 8 PM</div></div></div>
+      <div style="font-size:13px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em" data-i18n="glance_title">Clinic at a Glance</div>
+      <div class="a-stat"><div style="font-size:28px">👨‍⚕️</div><div><div class="a-num" id="about-doctors-count">10+</div><div class="a-lbl" data-i18n="glance_doctors">Specialist Doctors</div></div></div>
+      <div class="a-stat"><div style="font-size:28px">🔬</div><div><div class="a-num">40+</div><div class="a-lbl" data-i18n="glance_tests">Lab Tests Available</div></div></div>
+      <div class="a-stat"><div style="font-size:28px">💊</div><div><div class="a-num">200+</div><div class="a-lbl" data-i18n="glance_medicines">Medicines in Pharmacy</div></div></div>
+      <div class="a-stat"><div style="font-size:28px">📍</div><div><div style="font-size:14px;font-weight:700" data-i18n="glance_location">Location</div><div class="a-lbl" id="clinic-location-text">123 Healthcare Ave — Open Mon–Sat, 8 AM to 8 PM</div></div></div>
     </div>
   </div>
 </section>
 
 <div style="padding: 0 24px;">
   <div class="cta">
-    <h2>Ready to See a Doctor?</h2>
-    <p>Contact us instantly on WhatsApp or call our reception. No long waits, no complex forms.</p>
+    <h2 data-i18n="cta_title">Ready to See a Doctor?</h2>
+    <p data-i18n="cta_desc">Contact us instantly on WhatsApp or call our reception. No long waits, no complex forms.</p>
     <div style="display:flex;justify-content:center;">
-      <a href="https://wa.me/917592072319?text=Hello%2C%20I%20would%20like%20to%20book%20an%20appointment%20at%20AL-CLINICA." target="_blank" class="btn-p" style="background:linear-gradient(135deg,#25d366,#128c5e)" id="clinic-wa-btn">💬 WhatsApp Us Now</a>
+      <a href="https://wa.me/917592072319?text=Hello%2C%20I%20would%20like%20to%20book%20an%20appointment%20at%20AL-CLINICA." target="_blank" class="btn-p" style="background:linear-gradient(135deg,#25d366,#128c5e)" id="clinic-wa-btn" data-i18n="cta_wa_btn">💬 WhatsApp Us Now</a>
     </div>
   </div>
 </div>
@@ -411,12 +464,12 @@
 <footer>
   <div class="f-brand">AL-CLINICA<span>.</span></div>
   <div class="f-links">
-    <a href="#doctors">Doctors</a>
-    <a href="#how">How It Works</a>
-    <a href="#about">About</a>
-    <a href="#" id="admin-login-btn" style="color: var(--cyan); font-weight: 600;">Admin Portal</a>
+    <a href="#doctors" data-i18n="footer_doctors">Doctors</a>
+    <a href="#how" data-i18n="footer_how">How It Works</a>
+    <a href="#about" data-i18n="footer_about">About</a>
+    <a href="#" id="admin-login-btn" style="color: var(--cyan); font-weight: 600;" data-i18n="footer_admin">Admin Portal</a>
   </div>
-  <div class="f-copy">© 2025 AL-CLINICA. All rights reserved.</div>
+  <div class="f-copy" id="footer-copy-text">© 2025 AL-CLINICA. All rights reserved.</div>
 </footer>
 
 <!-- Admin Floating Dock -->
@@ -662,6 +715,212 @@ const DEFAULT_SETTINGS = {
   wa: "917592072319"
 };
 
+// --- i18n / Localization Config ---
+const translations = {
+  en: {
+    nav_doctors: "Our Doctors",
+    nav_how: "How It Works",
+    nav_about: "About Us",
+    nav_book: "Book Now",
+    hero_badge: "🏥 Your Trusted Healthcare Partner",
+    hero_title: "Quality Healthcare,<br/><span class=\"gradient\">Right at Your Doorstep</span>",
+    hero_desc: "Browse our specialist doctors, book an appointment via WhatsApp, or simply call us. No registration needed.",
+    hero_find_doc: "👨‍⚕️ Find a Doctor",
+    hero_about_us: "ℹ️ About Us",
+    stat_doctors: "Specialist Doctors",
+    stat_patients: "Patients Served",
+    stat_years: "Years of Care",
+    stat_emergency: "Emergency Ready",
+    how_tag: "Simple Process",
+    how_title: "Book in 3 Easy Steps",
+    how_subtitle: "No complicated forms. Pick a doctor and connect instantly.",
+    step1_title: "Browse Doctors",
+    step1_desc: "Find the right specialist from our experienced team.",
+    step2_title: "WhatsApp or Call",
+    step2_desc: "Tap WhatsApp to chat or call reception to confirm your slot.",
+    step3_title: "Visit the Clinic",
+    step3_desc: "Arrive at your booked time. We will be ready for you.",
+    docs_tag: "Our Specialists",
+    docs_title: "Meet Our Doctors",
+    docs_subtitle: "Our experienced, certified specialists are here for you.",
+    about_tag: "About {clinicName}",
+    about_title: "A Clinic That Cares, Beyond the Prescription",
+    about_subtitle: "Established over 15 years ago, AL-CLINICA has been a pillar of quality healthcare. We combine experienced specialists with modern diagnostics for personalised, compassionate care.",
+    feat_facility_title: "Modern Facility",
+    feat_facility_desc: "Advanced lab and pharmacy under one roof.",
+    feat_lab_title: "In-House Laboratory",
+    feat_lab_desc: "Fast, accurate results from certified lab technicians.",
+    feat_pharma_title: "On-Site Pharmacy",
+    feat_pharma_desc: "Get your medicines right after your consultation.",
+    feat_patient_title: "Patient-First Approach",
+    feat_patient_desc: "We listen, diagnose, and guide — never rushing your visit.",
+    glance_title: "Clinic at a Glance",
+    glance_doctors: "Specialist Doctors",
+    glance_tests: "Lab Tests Available",
+    glance_medicines: "Medicines in Pharmacy",
+    glance_location: "Location",
+    cta_title: "Ready to See a Doctor?",
+    cta_desc: "Contact us instantly on WhatsApp or call our reception. No long waits, no complex forms.",
+    cta_wa_btn: "💬 WhatsApp Us Now",
+    footer_doctors: "Doctors",
+    footer_how: "How It Works",
+    footer_about: "About",
+    footer_admin: "Admin Portal",
+    footer_copy: "© 2025 {clinicName}. All rights reserved.",
+    doc_wa_booking: "💬 WhatsApp Booking"
+  },
+  ml: {
+    nav_doctors: "ഞങ്ങളുടെ ഡോക്ടർമാർ",
+    nav_how: "പ്രവർത്തന രീതി",
+    nav_about: "ഞങ്ങളെക്കുറിച്ച്",
+    nav_book: "ബുക്കിംഗ്",
+    hero_badge: "🏥 നിങ്ങളുടെ വിശ്വസ്ത ആരോഗ്യ പങ്കാളി",
+    hero_title: "ഗുണമേന്മയുള്ള ചികിൽസ,<br/><span class=\"gradient\">നിങ്ങളുടെ തൊട്ടരികിൽ</span>",
+    hero_desc: "ഞങ്ങളുടെ സ്പെഷ്യലിസ്റ്റ് ഡോക്ടർമാരെ കണ്ടെത്തുക, വാട്ട്‌സ്ആപ്പ് വഴി അപ്പോയിന്റ്മെന്റ് ബുക്ക് ചെയ്യുക. രജിസ്ട്രേഷൻ ആവശ്യമില്ല.",
+    hero_find_doc: "👨‍⚕️ ഡോക്ടറെ കണ്ടെത്തുക",
+    hero_about_us: "ℹ️ ഞങ്ങളെക്കുറിച്ച്",
+    stat_doctors: "സ്പെഷ്യലിസ്റ്റ് ഡോക്ടർമാർ",
+    stat_patients: "രോഗികൾക്ക് നൽകിയ സേവനം",
+    stat_years: "വർഷങ്ങളുടെ പരിചയസമ്പത്ത്",
+    stat_emergency: "അടിയന്തര ഘട്ടങ്ങളിൽ സജ്ജം",
+    how_tag: "ലളിതമായ പ്രക്രിയ",
+    how_title: "3 എളുപ്പമുള്ള ഘട്ടങ്ങളിലൂടെ ബുക്ക് ചെയ്യാം",
+    how_subtitle: "സങ്കീർണ്ണമായ ഫോമുകൾ ഇല്ല. ഒരു ഡോക്ടറെ തിരഞ്ഞെടുത്ത് ഉടൻ ബന്ധപ്പെടുക.",
+    step1_title: "ഡോക്ടർമാരെ തിരയുക",
+    step1_desc: "ഞങ്ങളുടെ പരിചയസമ്പന്നരായ ടീമിൽ നിന്ന് അനുയോജ്യനായ സ്പെഷ്യലിസ്റ്റിനെ കണ്ടെത്തുക.",
+    step2_title: "വാട്ട്‌സ്ആപ്പ് അല്ലെങ്കിൽ കോൾ",
+    step2_desc: "ചാറ്റ് ചെയ്യാൻ വാട്ട്‌സ്ആപ്പ് ടാപ്പ് ചെയ്യുക അല്ലെങ്കിൽ അപ്പോയിന്റ്മെന്റ് ഉറപ്പാക്കാൻ വിളിക്കുക.",
+    step3_title: "ക്ലിനിക്ക് സന്ദർശിക്കുക",
+    step3_desc: "ബുക്ക് ചെയ്ത സമയത്ത് എത്തിച്ചേരുക. ഞങ്ങൾ നിങ്ങൾക്കായി തയാറായിരിക്കും.",
+    docs_tag: "ഞങ്ങളുടെ വിദഗ്ദ്ധർ",
+    docs_title: "ഞങ്ങളുടെ ഡോക്ടർമാരെ പരിചയപ്പെടാം",
+    docs_subtitle: "പരിചയസമ്പന്നരും യോഗ്യതയുള്ളവരുമായ ഞങ്ങളുടെ സ്പെഷ്യലിസ്റ്റുകൾ നിങ്ങൾക്കായി എപ്പോഴും ലഭ്യമാണ്.",
+    about_tag: "{clinicName}-യെക്കുറിച്ച്",
+    about_title: "മരുന്നിനപ്പുറം കരുതലോടെയുള്ള ചികിത്സ",
+    about_subtitle: "15 വർഷത്തിലേറെയായി പ്രവർത്തിക്കുന്ന AL-CLINICA ഗുണനിലവാരമുള്ള ആരോഗ്യ പരിരക്ഷ നൽകുന്നു. വ്യക്തിഗത പരിചരണത്തിനായി ഞങ്ങൾ മികച്ച ഡോക്ടർമാരെയും ആധുനിക ലാബുകളെയും സമന്വയിപ്പിക്കുന്നു.",
+    feat_facility_title: "ആധുനിക സൗകര്യം",
+    feat_facility_desc: "വിപുലമായ ലാബും ഫാർമസിയും ഒരേ കുടക്കീഴിൽ.",
+    feat_lab_title: "ഇൻ-ഹൗസ് ലബോറട്ടറി",
+    feat_lab_desc: "വേഗതയേറിയതും കൃത്യവുമായ ഫലങ്ങൾ.",
+    feat_pharma_title: "ഓൺ-സൈറ്റ് ഫാർമസി",
+    feat_pharma_desc: "ഡോക്ടറെ കണ്ട ഉടൻ തന്നെ മരുന്നുകൾ വാങ്ങാം.",
+    feat_patient_title: "രോഗികൾക്ക് മുൻഗണന",
+    feat_patient_desc: "ഞങ്ങൾ നിങ്ങളുടെ ബുദ്ധിമുട്ടുകൾ ക്ഷമയോടെ കേട്ട് പരിഹാരം നിർദ്ദേശിക്കുന്നു.",
+    glance_title: "ക്ലിനിക്ക് ഒറ്റനോട്ടത്തിൽ",
+    glance_doctors: "സ്പെഷ്യലിസ്റ്റ് ഡോക്ടർമാർ",
+    glance_tests: "ലഭ്യമായ ലാബ് ടെസ്റ്റുകൾ",
+    glance_medicines: "ഫാർമസിയിലെ മരുന്നുകൾ",
+    glance_location: "വിലാസം",
+    cta_title: "ഒരു ഡോക്ടറെ കാണാൻ തയാറാണോ?",
+    cta_desc: "വാട്ട്‌സ്ആപ്പിൽ ഉടൻ ബന്ധപ്പെടുക അല്ലെങ്കിൽ റിസപ്ഷനിൽ വിളിക്കുക. കാത്തിരിപ്പുകൾ ഒഴിവാക്കൂ.",
+    cta_wa_btn: "💬 ഇപ്പോൾ വാട്ട്‌സ്ആപ്പ് ചെയ്യുക",
+    footer_doctors: "ഡോക്ടർമാർ",
+    footer_how: "പ്രവർത്തന രീതി",
+    footer_about: "വിവരങ്ങൾ",
+    footer_admin: "അഡ്മിൻ പോർട്ടൽ",
+    footer_copy: "© 2025 {clinicName}. എല്ലാ അവകാശങ്ങളും നിക്ഷിപ്തം.",
+    doc_wa_booking: "💬 വാട്ട്‌സ്ആപ്പ് ബുക്കിംഗ്"
+  }
+};
+
+const dayTranslations = {
+  'tomorrow': 'നാളെ',
+  'today': 'ഇന്ന്',
+  'monday': 'തിങ്കളാഴ്ച',
+  'tuesday': 'ചൊവ്വാഴ്ച',
+  'wednesday': 'ബുധനാഴ്ച',
+  'thursday': 'വ്യാഴാഴ്ച',
+  'friday': 'വെള്ളിയാഴ്ച',
+  'saturday': 'ശനിയാഴ്ച',
+  'sunday': 'ഞായറാഴ്ച'
+};
+
+const weekDaysShort = {
+  'mon': 'തിങ്കൾ',
+  'tue': 'ചൊവ്വ',
+  'wed': 'ബുധൻ',
+  'thu': 'വ്യാഴം',
+  'fri': 'വെള്ളി',
+  'sat': 'ശനി',
+  'sun': 'ഞായർ'
+};
+
+const specTranslations = {
+  'General Physician': 'ജനറൽ ഫിസിഷ്യൻ',
+  'Cardiologist': 'കാർഡിയോളജിസ്റ്റ്',
+  'Gynaecologist': 'ഗൈനക്കോളജിസ്റ്റ്',
+  'Orthopaedic Surgeon': 'ഓർത്തോപീഡിക് സർജൻ',
+  'Paediatrician': 'പീഡിയാട്രീഷ്യൻ',
+  'Dermatologist': 'ഡെർമറ്റോളജിസ്റ്റ്'
+};
+
+let currentLang = localStorage.getItem('clinic_lang') || 'en';
+
+function getTranslatedAvail(doc) {
+  if (doc.available) {
+    return currentLang === 'ml' ? 'ഇന്ന് ലഭ്യമാണ്' : 'Available Today';
+  }
+  const text = doc.nextAvail || 'Next: Tomorrow';
+  if (currentLang !== 'ml') return text;
+  
+  let translated = text;
+  translated = translated.replace(/Next\s*:?/i, 'അടുത്തത്:');
+  Object.keys(dayTranslations).forEach(day => {
+    const regex = new RegExp(day, 'gi');
+    translated = translated.replace(regex, dayTranslations[day]);
+  });
+  return translated;
+}
+
+function getTranslatedExp(exp) {
+  if (currentLang !== 'ml') return exp;
+  let translated = exp;
+  translated = translated.replace(/yrs?\s*(exp)?/gi, 'വർഷത്തെ പരിചയം');
+  translated = translated.replace(/years?\s*(experience)?/gi, 'വർഷത്തെ പരിചയം');
+  return translated;
+}
+
+function getTranslatedDays(days) {
+  if (currentLang !== 'ml') return days;
+  let translated = days;
+  Object.keys(weekDaysShort).forEach(day => {
+    const regex = new RegExp(day, 'gi');
+    translated = translated.replace(regex, weekDaysShort[day]);
+  });
+  return translated;
+}
+
+function getTranslatedSpec(spec) {
+  if (currentLang !== 'ml') return spec;
+  return specTranslations[spec] || spec;
+}
+
+function setLanguage(lang) {
+  currentLang = lang;
+  localStorage.setItem('clinic_lang', lang);
+  
+  document.getElementById('lang-en').classList.toggle('active', lang === 'en');
+  document.getElementById('lang-ml').classList.toggle('active', lang === 'ml');
+  
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    let text = translations[lang][key];
+    if (text) {
+      if (text.includes('{clinicName}')) {
+        text = text.replace('{clinicName}', settings.clinicName || 'AL-CLINICA');
+      }
+      
+      if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+        el.placeholder = text;
+      } else {
+        el.innerHTML = text;
+      }
+    }
+  });
+  
+  renderUI();
+}
+
 let doctors = [];
 let settings = {};
 let isAdmin = false;
@@ -812,14 +1071,14 @@ async function init() {
     doctors = data.doctors;
     isAdmin = data.isAdmin;
     
-    renderUI();
+    setLanguage(currentLang);
   } catch (error) {
     console.error('Error initializing data from server:', error);
     alert('Failed to connect to the clinic server. Running in offline fallback mode.');
     settings = { ...DEFAULT_SETTINGS };
     doctors = [ ...DEFAULT_DOCTORS ];
     isAdmin = false;
-    renderUI();
+    setLanguage(currentLang);
   }
 }
 
@@ -831,7 +1090,9 @@ function renderUI() {
   
   const aboutTag = document.querySelector('#about .tag');
   if (aboutTag) {
-    aboutTag.textContent = 'About ' + settings.clinicName;
+    aboutTag.textContent = currentLang === 'ml' 
+      ? `${settings.clinicName}-യെക്കുറിച്ച്` 
+      : 'About ' + settings.clinicName;
   }
   
   const locationEl = document.getElementById('clinic-location-text');
@@ -879,19 +1140,26 @@ function renderUI() {
       ` : ''}
       <div class="doc-av" style="background: ${doc.image ? 'none' : bg}">${avatarContent}</div>
       <div class="doc-name">${doc.name}</div>
-      <div class="doc-spec">${doc.spec}</div>
-      <div class="doc-info">🎓 ${doc.qual} &nbsp;|&nbsp; <span>${doc.exp}</span></div>
-      <div class="doc-info">🕐 ${doc.days} &nbsp;<span>${doc.time}</span></div>
+      <div class="doc-spec">${getTranslatedSpec(doc.spec)}</div>
+      <div class="doc-info">🎓 ${doc.qual} &nbsp;|&nbsp; <span>${getTranslatedExp(doc.exp)}</span></div>
+      <div class="doc-info">🕐 ${getTranslatedDays(doc.days)} &nbsp;<span>${doc.time}</span></div>
       <div class="doc-avail">
         <div class="dot ${doc.available ? 'g' : 'r'}"></div> 
-        ${doc.available ? 'Available Today' : (doc.nextAvail || 'Next: Tomorrow')}
+        ${getTranslatedAvail(doc)}
       </div>
       <div class="doc-acts">
-        <a href="${waUrl}" target="_blank" class="btn-wa" style="width: 100%;">💬 WhatsApp Booking</a>
+        <a href="${waUrl}" target="_blank" class="btn-wa" style="width: 100%;">${translations[currentLang].doc_wa_booking}</a>
       </div>
     `;
     container.appendChild(card);
   });
+
+  const footerCopyEl = document.getElementById('footer-copy-text');
+  if (footerCopyEl) {
+    footerCopyEl.textContent = currentLang === 'ml'
+      ? `© 2025 ${settings.clinicName}. എല്ലാ അവകാശങ്ങളും നിക്ഷിപ്തം.`
+      : `© 2025 ${settings.clinicName}. All rights reserved.`;
+  }
 
   if (isAdmin) {
     const addCard = document.createElement('div');
