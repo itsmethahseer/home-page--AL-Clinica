@@ -9,4 +9,6 @@ services:
     volumes:
       - ./data.json:/app/data.json
       - ./uploads:/app/uploads
+    env_file:
+      - .env
     restart: always

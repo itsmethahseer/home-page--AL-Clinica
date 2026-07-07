@@ -21,6 +21,12 @@ os.makedirs(UPLOAD_DIR, exist_ok=True)
 # In-memory active session store
 active_sessions = set()
 
+# Security Configurations from Environment Variables
+ADMIN_USERNAME = os.getenv("ADMIN_USERNAME", "admin")
+ADMIN_PASSWORD = os.getenv("ADMIN_PASSWORD", "admin123")
+SECURE_COOKIES = os.getenv("SECURE_COOKIES", "false").lower() == "true"
+ALLOWED_EXTENSIONS = {'.png', '.jpg', '.jpeg', '.webp'}
+
 # Pydantic Schemas
 class ClinicSettings(BaseModel):
     clinicName: str
@@ -88,10 +94,17 @@ async def get_data(session_id: Optional[str] = Cookie(None)):
 
 @app.post("/api/login")
 async def login(payload: LoginPayload, response: Response):
-    if payload.username == 'admin' and payload.password == 'admin123':
+    if payload.username == ADMIN_USERNAME and payload.password == ADMIN_PASSWORD:
         session_id = str(uuid.uuid4())
         active_sessions.add(session_id)
-        response.set_cookie(key="session_id", value=session_id, httponly=True, path="/")
+        response.set_cookie(
+            key="session_id",
+            value=session_id,
+            httponly=True,
+            secure=SECURE_COOKIES,
+            samesite="lax",
+            path="/"
+        )
         return {"success": True}
     raise HTTPException(status_code=401, detail="Invalid username or password.")
 
@@ -111,7 +124,12 @@ async def update_settings(settings: ClinicSettings, authorized: bool = Depends(v
 
 @app.post("/api/upload")
 async def upload_file(file: UploadFile = File(...), authorized: bool = Depends(verify_admin)):
-    file_ext = os.path.splitext(file.filename)[1]
+    file_ext = os.path.splitext(file.filename)[1].lower()
+    if file_ext not in ALLOWED_EXTENSIONS:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Invalid file type. Allowed extensions: {', '.join(ALLOWED_EXTENSIONS)}"
+        )
     filename = f"doc_{uuid.uuid4().hex}{file_ext}"
     filepath = os.path.join(UPLOAD_DIR, filename)
     
