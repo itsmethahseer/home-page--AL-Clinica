@@ -5,6 +5,11 @@ from pydantic import BaseModel
 from typing import Optional
 import json
 import os
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    pass
 import time
 import uuid
 import shutil

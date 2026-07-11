@@ -36,17 +36,18 @@
     },
     {
       "id": "doc-3",
-      "name": "Dr. Fathima Noor",
+      "name": "Dr. Fathima Noou",
       "spec": "Gynaecologist",
       "qual": "MBBS, MS (OBG)",
-      "exp": "10 yrs",
+      "exp": "8 yrs",
       "days": "Tue, Thu, Sat",
       "time": "9 AM – 4 PM",
-      "available": true,
-      "nextAvail": "",
       "phone": "",
       "wa": "",
-      "avatarBg": "linear-gradient(135deg,#f59e0b,#ef4444)"
+      "available": false,
+      "nextAvail": "Next: Tomorrow",
+      "avatarBg": "linear-gradient(135deg,#f59e0b,#ef4444)",
+      "image": ""
     },
     {
       "id": "doc-4",
